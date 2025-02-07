@@ -55,7 +55,7 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+int   Encoder_A,Encoder_B;
 /* USER CODE END 0 */
 
 /**
@@ -90,7 +90,7 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
-  PWM_TIM3_Init(7199,0);
+  MX_TIM3_Init();
   MX_TIM4_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
@@ -114,8 +114,13 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
-
+//	  Set_Pwm(1000,1000);
+	  Encoder_A=-Encoder_Read(2);
+	  	  Encoder_B=+Encoder_Read(4);
+	  	  OLED_ShowFloat(0,10,Encoder_A,5,0,8,1);
+	  	  OLED_ShowFloat(0,20,Encoder_B,5,0,8,1);
+	  	  OLED_Refresh();
+	  	  HAL_Delay(10);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

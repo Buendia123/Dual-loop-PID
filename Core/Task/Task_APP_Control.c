@@ -17,7 +17,6 @@ static void App_Handle(uint8_t *data, uint16_t length);
 
 void InitBinarySemaphore(void)
 {
-    // 创建二值信号量
     xBinarySemaphore = xSemaphoreCreateBinary();
     if (xBinarySemaphore == NULL)
     {
@@ -152,11 +151,11 @@ static void App_Handle(uint8_t *data, uint16_t length)
 		uint8_t balance_kd_digits = data[4];
 		uint8_t velocity_kp_digits = data[5];
 		uint8_t velocity_ki_digits = data[6];
-		app_para.balance_kp = Parse_Float(data + 7, balance_kp_digits);
-		app_para.balance_ki = Parse_Float(data + 7 + balance_kp_digits, balance_ki_digits);
-		app_para.balance_kd = Parse_Float(data + 7 + balance_kp_digits + balance_ki_digits, balance_kd_digits);
-		app_para.velocity_kp = Parse_Float(data + 7 + balance_kp_digits + balance_ki_digits + balance_kd_digits, velocity_kp_digits);
-		app_para.velocity_ki = Parse_Float(data + 7 + balance_kp_digits + balance_ki_digits + balance_kd_digits + velocity_kp_digits, velocity_ki_digits);
+		app_para.velocity_kp = Parse_Float(data + 7, balance_kp_digits);
+		app_para.velocity_ki = Parse_Float(data + 7 + balance_kp_digits, balance_ki_digits);
+		app_para.line_kp = Parse_Float(data + 7 + balance_kp_digits + balance_ki_digits, balance_kd_digits);
+		app_para.line_kd = Parse_Float(data + 7 + balance_kp_digits + balance_ki_digits + balance_kd_digits, velocity_kp_digits);
+		app_para.speed = Parse_Float(data + 7 + balance_kp_digits + balance_ki_digits + balance_kd_digits + velocity_kp_digits, velocity_ki_digits);
 	}
 
 }

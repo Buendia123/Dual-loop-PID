@@ -31,6 +31,7 @@ extern "C" {
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
+
 extern TIM_HandleTypeDef htim1;
 
 extern TIM_HandleTypeDef htim2;
@@ -45,13 +46,19 @@ extern TIM_HandleTypeDef htim4;
 
 void MX_TIM1_Init(void);
 void MX_TIM2_Init(void);
-void PWM_TIM3_Init(uint16_t arr, uint16_t psc);
+void MX_TIM3_Init(void);
 void MX_TIM4_Init(void);
-
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
+/* USER CODE BEGIN Prototypes */
+#define SET_ENA_PWM_A(duty)  Set_PWM_RAW(&htim3, TIM_CHANNEL_1, duty)
+#define SET_ENA_PWM_B(duty)  Set_PWM_RAW(&htim3, TIM_CHANNEL_2, duty)
+#define SET_ENB_PWM_A(duty)  Set_PWM_RAW(&htim3, TIM_CHANNEL_3, duty)
+#define SET_ENB_PWM_B(duty)  Set_PWM_RAW(&htim3, TIM_CHANNEL_4, duty)
 
 
 /* USER CODE BEGIN Prototypes */
+
 
 /* USER CODE END Prototypes */
 

@@ -110,11 +110,11 @@ typedef enum {
 } blue_data_type;
 
 typedef struct{
-	float balance_kp;
-	float balance_ki;
-	float balance_kd;
 	float velocity_kp;
 	float velocity_ki;
+	float line_kp;
+	float line_kd;
+	float speed;
 }PIDPara;
 
 extern CircularQueue capture_queue;

@@ -7,6 +7,7 @@
 
 #include "Task_Algorithm.h"
 #include "math.h"
+#include"dev_encoder.h"
 
 
 static float target_dirz,target_dirx,target_diry;
@@ -25,6 +26,7 @@ static float Velocity_Bias,Velocity_integral;
 static VelocityControlState stateA = {0, 0, 0};
 static VelocityControlState stateB = {0, 0, 0};
 
+static int   Encoder_A,Encoder_B;
 static int tilt_flag = 0;
 int limit=5268;
 int StrightControl(float Angle,float Target)
@@ -138,8 +140,10 @@ void PosControl(void)
 
 			Encoder_A_correct = (+target_dirx) + target_dirz;
 			Encoder_B_correct = (+target_dirx) - target_dirz;
+
 			vertical_control_value = -VerticalControl(ang.acc->Pitch, ZeroPoint);//left right
 			velocity_control_value = +VelocityControl(motorval.encodeA - Encoder_A_correct + motorval.encodeB - Encoder_B_correct);
+
 			velocity_control_value = (velocity_control_value>180)?180:velocity_control_value;
 			velocity_control_value = (velocity_control_value<-180)?(-180):velocity_control_value;
 			velocity_ring_encode_A = vertical_control_value + velocity_control_value + Encoder_A_correct;
@@ -224,48 +228,36 @@ void direction_control(void)
 	}
 }
 
-void Set_Pwm(int motor_A,int motor_B)
-{
-	if(motor_A<0)
-	{
-		encodeA_PWMA=7199;
-		encodeA_PWMB=7199 + motor_A;
-	}
 
-	else{
-		encodeA_PWMB=7199;
-		encodeA_PWMA=7199 - motor_A;
-	}
-	if(motor_B<0){
-		encodeB_PWMA=7199;
-		encodeB_PWMB=7199 + motor_B;
-	}
-	else{
-		encodeB_PWMB=7199;
-		encodeB_PWMA=7199 - motor_B;
-	}
-}
-
-//button push 1: self balance
-//button push 2: ultrasonic tracking
+/*button push 1: self balance
+button push 2: app control*/
 void vControlTask(void *pvParameters) {
-
-	direction_control();
-	PosControl();
-
-	if(Motor_A>+limit)Motor_A=+limit;
-	if(Motor_A<-limit)Motor_A=-limit;
-	if(Motor_B>+limit)Motor_B=+limit;
-	if(Motor_B<-limit)Motor_B=-limit;
-
-	if(buttonResult==1)
-		Set_Pwm(Motor_A,Motor_B);
-	else
+	for(;;)
 	{
-	 Set_Pwm(0,0);
-	 Motor_A=0;
-	 Motor_B=0;
-	 target_yaw = ang.acc->Yaw;
-	 target_dirx=0;
+		if (data_type =+ parameter)
+		{
+
+		}
+//		Set_Pwm(800,800);
+//		vTaskDelay(10);
+		direction_control();
+		PosControl();
+
+		if(Motor_A>+limit)Motor_A=+limit;
+		if(Motor_A<-limit)Motor_A=-limit;
+		if(Motor_B>+limit)Motor_B=+limit;
+		if(Motor_B<-limit)Motor_B=-limit;
+
+		if(buttonResult==1)
+			Set_Pwm(Motor_A,Motor_B);
+		else
+		{
+		 Set_Pwm(0,0);
+		 Motor_A=0;
+		 Motor_B=0;
+		 target_yaw = ang.acc->Yaw;
+		 target_dirx=0;
+		}
+		vTaskDelay(50);
 	}
 }

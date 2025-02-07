@@ -128,12 +128,12 @@ void MX_FREERTOS_Init(void) {
 							(UBaseType_t)osPriorityNormal,
 							(TaskHandle_t *)&ShowTaskHandler);
 
-//	xTaskCreate((TaskFunction_t)vAPPTask,
-//							(const char *)"app_task",
-//							(uint16_t)128,
-//							(void *)NULL,
-//							(UBaseType_t)osPriorityHigh,
-//							(TaskHandle_t *)&AppTaskHandler);
+	xTaskCreate((TaskFunction_t)vAPPTask,
+							(const char *)"app_task",
+							(uint16_t)128,
+							(void *)NULL,
+							(UBaseType_t)osPriorityHigh,
+							(TaskHandle_t *)&AppTaskHandler);
 //	xTaskCreate((TaskFunction_t)vControlTask,
 //							(const char *)"control_task",
 //							(uint16_t)64,

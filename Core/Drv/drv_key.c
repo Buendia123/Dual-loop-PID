@@ -37,13 +37,14 @@ void CheckButtonPress(void)
                 lastPressTime = xTaskGetTickCount(); // 记录按下开始时间
                 pressDuration = 0;             // 重置按下持续时间
             }else {
-            	pressDuration = xTaskGetTickCount();
-            	 if (pressDuration - lastIdleTime >= 10000) {
-					lastIdleTime = pressDuration;
-					pressDuration = 0;
-					pressCount = 0;
-					buttonResult = 0;
-					}
+            	buttonState = IDLE;
+//            	pressDuration = xTaskGetTickCount();
+//            	 if (pressDuration - lastIdleTime >= 10000) {
+//					lastIdleTime = pressDuration;
+//					pressDuration = 0;
+//					pressCount = 0;
+//					buttonResult = 0;
+//					}
 			}
             break;
 

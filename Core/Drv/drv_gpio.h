@@ -37,8 +37,10 @@ extern "C" {
 #define Encoder_TIM2_CH2 		GPIO_PIN_1
 #define Encoder_TIM4_CH1 		GPIO_PIN_6
 #define Encoder_TIM4_CH2 		GPIO_PIN_7
-#define Encoder_TIM3_CH3 		GPIO_PIN_0
-#define Encoder_TIM3_CH4 		GPIO_PIN_1
+#define PWM_TIM3_CH1 			GPIO_PIN_6
+#define PWM_TIM3_CH2 			GPIO_PIN_7
+#define PWM_TIM3_CH3	 		GPIO_PIN_0
+#define PWM_TIM3_CH4 			GPIO_PIN_1
 
 #define Ultra_Echo 				GPIO_PIN_8
 #define Ultra_Trig	 			GPIO_PIN_11

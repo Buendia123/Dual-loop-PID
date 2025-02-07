@@ -46,6 +46,11 @@ void vOLEDTask(void *pvParameters)
 		OLED_ShowNum(35,30,buttonResult,1,8,1);
 		OLED_ShowString(00,40,"U:",8,1),OLED_ShowFloat(12,40,dis,2,3,8,1);
 
+		int Encoder_A=-Encoder_Read(2);
+		int Encoder_B=+Encoder_Read(4);
+		OLED_ShowFloat(60,10,Encoder_A,5,0,8,1);
+		OLED_ShowFloat(60,20,Encoder_B,5,0,8,1);
+
 		OLED_Refresh();
 		vTaskDelay(100);
 //		UBaseType_t uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);

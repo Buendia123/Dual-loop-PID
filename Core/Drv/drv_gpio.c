@@ -77,10 +77,10 @@ void MX_GPIO_Init(void)
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-	__HAL_AFIO_REMAP_TIM2_PARTIAL_1();
-
-	//TIM4 Encoder2
+//
+//	__HAL_AFIO_REMAP_TIM2_PARTIAL_1();
+//
+//	//TIM4 Encoder2
 	__HAL_RCC_TIM4_CLK_ENABLE();
 
 	/**TIM4 GPIO Configuration
@@ -94,12 +94,17 @@ void MX_GPIO_Init(void)
 
 
 	//TIM3 PWM
-//	__HAL_RCC_TIM4_CLK_ENABLE();
-//
-//	GPIO_InitStruct.Pin = Encoder_TIM3_CH3|Encoder_TIM3_CH4;
-//	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-//	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-//	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+	 __HAL_RCC_TIM3_CLK_ENABLE();
+
+	GPIO_InitStruct.Pin = PWM_TIM3_CH1|PWM_TIM3_CH2;
+	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+	GPIO_InitStruct.Pin = PWM_TIM3_CH3|PWM_TIM3_CH4;
+	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 	//USART1
 	 __HAL_RCC_USART1_CLK_ENABLE();
